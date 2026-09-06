@@ -1493,3 +1493,288 @@
     width: 100%;
   }
 }
+/* =========================================================
+   FLOATING COMPLAINT BUTTON
+========================================================= */
+
+.floating-complaint-button {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  width: 56px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #0b1f3a;
+  color: #ffffff;
+
+  font-size: 21px;
+  font-weight: 700;
+
+  box-shadow: 0 8px 25px rgba(11, 31, 58, 0.22);
+
+  cursor: pointer;
+
+  z-index: 900;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.floating-complaint-button:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 12px 30px rgba(11, 31, 58, 0.28);
+}
+
+/* =========================================================
+   COMPLAINT MODAL
+========================================================= */
+
+.complaint-overlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(7, 23, 45, 0.45);
+}
+
+.complaint-modal {
+  width: 100%;
+  max-width: 500px;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  padding: 25px;
+
+  border: 1px solid #dfe4eb;
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  box-shadow: 0 20px 60px rgba(11, 31, 58, 0.18);
+}
+
+.complaint-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 22px;
+}
+
+.complaint-label {
+  display: block;
+
+  color: #667085;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+.complaint-modal h3 {
+  margin-top: 6px;
+
+  color: #111111;
+
+  font-size: 22px;
+}
+
+.complaint-close {
+  width: 32px;
+  height: 32px;
+
+  border: 1px solid #dfe4eb;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #667085;
+
+  font-size: 21px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.complaint-modal form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.complaint-modal label {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+
+  color: #111111;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.complaint-modal input,
+.complaint-modal select,
+.complaint-modal textarea {
+  width: 100%;
+
+  padding: 11px 12px;
+
+  border: 1px solid #dfe4eb;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #111111;
+
+  font-size: 13px;
+
+  outline: none;
+
+  resize: vertical;
+}
+
+.complaint-modal input:focus,
+.complaint-modal select:focus,
+.complaint-modal textarea:focus {
+  border-color: #0b1f3a;
+}
+
+.complaint-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 10px;
+
+  margin-top: 5px;
+}
+
+.complaint-cancel,
+.complaint-submit {
+  padding: 11px 16px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.complaint-cancel {
+  border: 1px solid #dfe4eb;
+
+  background: #ffffff;
+  color: #111111;
+}
+
+.complaint-submit {
+  border: none;
+
+  background: #0b1f3a;
+  color: #ffffff;
+}
+
+.complaint-submit:hover {
+  background: #07172d;
+}
+
+.complaint-success {
+  padding: 25px 10px;
+
+  text-align: center;
+}
+
+.success-icon {
+  width: 52px;
+  height: 52px;
+
+  margin: 0 auto 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eef2f6;
+  color: #0b1f3a;
+
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.complaint-success h3 {
+  color: #111111;
+
+  font-size: 20px;
+}
+
+.complaint-success p {
+  margin-top: 8px;
+
+  color: #667085;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+.complaint-success .complaint-submit {
+  margin-top: 20px;
+}
+
+/* =========================================================
+   COMPLAINT — MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+  .floating-complaint-button {
+    right: 18px;
+    bottom: 18px;
+
+    width: 50px;
+    height: 50px;
+
+    font-size: 19px;
+  }
+
+  .complaint-overlay {
+    padding: 15px;
+  }
+
+  .complaint-modal {
+    padding: 20px;
+  }
+
+  .complaint-actions {
+    flex-direction: column-reverse;
+  }
+
+  .complaint-cancel,
+  .complaint-submit {
+    width: 100%;
+  }
+}

@@ -267,6 +267,10 @@ function Consumer({ onBack }) {
   const [isListening, setIsListening] = useState(false);
   const recognitionRef = useRef(null);
 
+  // Complaint state
+  const [showComplaint, setShowComplaint] = useState(false);
+  const [complaintSubmitted, setComplaintSubmitted] = useState(false);
+
   const t = translations[language];
 
   useEffect(() => {
@@ -407,8 +411,6 @@ function Consumer({ onBack }) {
     }, 2500);
   };
 
-  // Example questions now only fill the textarea.
-  // They do not start processing automatically.
   const handleExample = (question) => {
     setQuery(question);
   };
@@ -419,10 +421,25 @@ function Consumer({ onBack }) {
     setAnswerData(null);
   };
 
+  // Complaint handlers
+  const handleComplaintSubmit = (e) => {
+    e.preventDefault();
+    setComplaintSubmitted(true);
+  };
+
+  const closeComplaint = () => {
+    setShowComplaint(false);
+    setComplaintSubmitted(false);
+  };
+
   const answer =
     answerData && answerContent[answerData.type]
       ? answerContent[answerData.type][language]
       : null;
+
+  // =========================================================
+  // SPLASH SCREEN
+  // =========================================================
 
   if (showSplash) {
     return (
@@ -440,6 +457,10 @@ function Consumer({ onBack }) {
       </div>
     );
   }
+
+  // =========================================================
+  // HOME SCREEN
+  // =========================================================
 
   if (screen === "home") {
     return (
@@ -465,7 +486,7 @@ function Consumer({ onBack }) {
             >
               <option value="English">English</option>
               <option value="Telugu">తెలుగు</option>
-              <option value="Hindi">हिन्दी</option>
+              <option value="Hindi">हिन्दీ</option>
             </select>
           </div>
         </nav>
@@ -543,9 +564,116 @@ function Consumer({ onBack }) {
             <p>BIS Xpert • Making Indian Standards easier to understand</p>
           </footer>
         </main>
+
+        {/* =====================================================
+            FLOATING COMPLAINT FEATURE
+        ===================================================== */}
+
+        <button
+          className="floating-complaint-button"
+          onClick={() => {
+            setShowComplaint(true);
+            setComplaintSubmitted(false);
+          }}
+          aria-label="Raise a complaint"
+          title="Raise a complaint"
+        >
+          ⚠
+        </button>
+
+        {showComplaint && (
+          <div className="complaint-overlay">
+            <div
+              className="complaint-modal"
+              onClick={(event) => event.stopPropagation()}
+            >
+              {!complaintSubmitted ? (
+                <>
+                  <div className="complaint-modal-header">
+                    <div>
+                      <span className="complaint-label">CONSUMER SUPPORT</span>
+
+                      <h3>Raise a Complaint</h3>
+                    </div>
+
+                    <button
+                      className="complaint-close"
+                      onClick={closeComplaint}
+                      aria-label="Close"
+                    >
+                      ×
+                    </button>
+                  </div>
+
+                  <form onSubmit={handleComplaintSubmit}>
+                    <label>
+                      Complaint Category
+                      <select required>
+                        <option value="">Select category</option>
+                        <option>Product</option>
+                        <option>BIS Certification</option>
+                        <option>Hallmarking</option>
+                        <option>Consumer Service</option>
+                        <option>Other</option>
+                      </select>
+                    </label>
+
+                    <label>
+                      Product / Service
+                      <input
+                        type="text"
+                        placeholder="Enter product or service"
+                        required
+                      />
+                    </label>
+
+                    <label>
+                      Describe your complaint
+                      <textarea
+                        rows="4"
+                        placeholder="Describe the issue..."
+                        required
+                      />
+                    </label>
+
+                    <div className="complaint-actions">
+                      <button
+                        type="button"
+                        className="complaint-cancel"
+                        onClick={closeComplaint}
+                      >
+                        Cancel
+                      </button>
+
+                      <button type="submit" className="complaint-submit">
+                        Submit Complaint
+                      </button>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <div className="complaint-success">
+                  <div className="success-icon">✓</div>
+
+                  <h3>Complaint submitted successfully</h3>
+
+                  <p>Thank you for bringing this issue to our attention.</p>
+
+                  <button className="complaint-submit" onClick={closeComplaint}>
+                    Done
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     );
   }
+
+  // =========================================================
+  // ANALYSIS SCREEN
+  // =========================================================
 
   if (screen === "analysis") {
     return (
@@ -608,6 +736,10 @@ function Consumer({ onBack }) {
       </div>
     );
   }
+
+  // =========================================================
+  // RESULT SCREEN
+  // =========================================================
 
   if (screen === "result" && answer) {
     return (
